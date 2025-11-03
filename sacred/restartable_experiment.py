@@ -314,7 +314,7 @@ class RestartableExperiment(Experiment):
         self._on_continue_fcn = None
         self._parent_run_id = None
         self._file_storage_observer = None
-        self.observers = None
+        self.observers = []
 
     @property
     def run_directory(self):
@@ -400,15 +400,15 @@ class RestartableExperiment(Experiment):
 
     def _register_prefix_observer(self, parent_run_id, *args, **kwargs):
         self._file_storage_observer = PrefixFileStorageObserver(basedir=self.observer_base_directory, run_id_prefix=parent_run_id, *args, **kwargs)
-        self.observers = tuple([self._file_storage_observer])
+        self.observers.append(self._file_storage_observer)
 
     def _register_restart_observer(self, parent_run_id, *args, **kwargs):
         self._file_storage_observer = RestartableFileStorageObserver(basedir=self.observer_base_directory, *args, **kwargs)
-        self.observers = tuple([self._file_storage_observer])
+        self.observers.append(self._file_storage_observer)
 
     def _register_default_observer(self, *args, **kwargs):
         self._file_storage_observer = FileStorageObserver(basedir=self.observer_base_directory, *args, **kwargs)
-        self.observers = tuple([self._file_storage_observer])
+        self.observers.append(self._file_storage_observer)
 
     def _get_run_dir(self, run_id):
         return Path(self.observer_base_directory).joinpath(str(run_id))
