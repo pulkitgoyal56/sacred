@@ -13,6 +13,7 @@ from sacred.ingredient import Ingredient
 from sacred import observers
 from sacred.host_info import host_info_getter, host_info_gatherer
 from sacred.commandline_options import cli_option
+from sacred.restartable_experiment import InitializationFinishedInterrupt, WaitingForRestartInterrupt, create_experiment, load_json
 
 
 __all__ = (
@@ -27,4 +28,8 @@ __all__ = (
     "SETTINGS",
     "host_info_gatherer",
     "cli_option",
+    "InitializationFinishedInterrupt",
+    "WaitingForRestartInterrupt",
+    "create_experiment",
+    "load_json",
 )
